@@ -2,6 +2,7 @@ package com.augustas.addressbook.model;
 
 public class Contact {
 
+    private int id;
     private String firstName;
     private String lastName;
     private String phoneNumber;
@@ -9,13 +10,15 @@ public class Contact {
 
 
     public Contact () {
+        this.id = 0;
         this.firstName = "";
         this.lastName = "";
         this.phoneNumber = "";
         this.emailAddress = "";
     }
 
-    public Contact (String firstName, String lastName, String phoneNumber, String emailAddress){
+    public Contact (int id, String firstName, String lastName, String phoneNumber, String emailAddress){
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -23,7 +26,7 @@ public class Contact {
     }
 
     //Getters
-
+    public int getId () { return this.id; }
     public String getFirstName (){
         return this.firstName;
     }
@@ -46,6 +49,7 @@ public class Contact {
 
     // Setters
 
+    public void setId (int id) { this.id= id;}
     public void setFirstName (String firstName){
         this.firstName = firstName;
     }
@@ -81,7 +85,8 @@ public class Contact {
         Contact contact = (Contact) obj;
 
         //Compare fields
-        return firstName.equals(contact.firstName) &&
+        return  id == contact.id &&
+                firstName.equals(contact.firstName) &&
                 lastName.equals(contact.lastName) &&
                 String.valueOf(phoneNumber).equals(String.valueOf(contact.phoneNumber)) &&
                 emailAddress.equals(contact.emailAddress);
@@ -89,7 +94,9 @@ public class Contact {
 
     @Override
     public int hashCode() {
-        int result = firstName.hashCode();
+        int result = 17;
+        result = 31 * result + id;
+        result = 31 * result + firstName.hashCode();
         result = 31 * result + lastName.hashCode();
         result = 31 * result + phoneNumber.hashCode();
         result = 31 * result + emailAddress.hashCode();
